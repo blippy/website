@@ -1,3 +1,7 @@
-#!/usr/bin/env bash
+ETC = /etc/nginx/sites-enabled
+.PHONY : install
 
-ln -s /home/acfsoul/para/www1/htdocs/ ~/public_html/htdocs1
+install :
+	rm $(ETC)/default
+	ln -s  `pwd`/main.cfg $(ETC)
+	service nginx restart
