@@ -1,0 +1,64 @@
+<html><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <LINK REL=StyleSheet HREF="../../style.css" TYPE="text/css">
+  <title>Python and Excel</title>
+</head>
+
+
+<body>
+
+<a href="../../index.html">Home</a> : 
+<a href="../programming.htm">programming</a> :
+<a href="python.htm">python</a>
+
+  
+<h1>Integrating Python and MS Excel</h1>
+
+  
+
+
+  
+<h2>Basic example</h2>
+
+  
+<pre># this example starts Excel, creates a new workbook, <br># puts some text in the first and second cell<br># closes the workbook without saving the changes<br># and closes Excel.  This happens really fast, so<br># you may want to comment out some lines and add them<br># back in one at a time ... or do the commands interactively<br><br><br>from win32com.client import Dispatch<br><br><br>xlApp = Dispatch("Excel.Application")<br>xlApp.Visible = 1<br>xlApp.Workbooks.Add()<br>xlApp.ActiveSheet.Cells(1,1).Value = 'Python Rules!'<br>xlApp.ActiveWorkbook.ActiveSheet.Cells(1,2).Value = 'Python Rules 2!'<br>xlApp.ActiveWorkbook.Close(SaveChanges=0) # see note 1<br>xlApp.Quit()<br>xlApp.Visible = 0 # see note 2<br>del xlApp<br><br># raw_input("press Enter ...")<br></pre>
+
+  <br>
+
+  
+<h3><b>Notes</b></h3>
+<ol>
+  <li>I changed <font face="Courier New, Courier, mono">xlApp.Close(SaveChanges=0)</font> 
+  to <font face="Courier New, Courier, mono">xlApp.ActiveWorkbook.Close(SaveChanges=0)</font>, 
+  because I was advised that the former didn't work.</li>
+  <li>On 14-Feb-2006, Stef Cruz informed me: "I find that you must make x1App.Visible=0 before you use del x1App, otherwise 
+EXCEL.EXE remains in memory. Try out the code again with Task Manager running, 
+you'll see what I mean."<br>
+  </li>
+</ol>
+
+  
+<hr>
+  
+<h2>External Workbook closure</h2>
+
+  
+<p>I saw this on a thread on comp.lang.python circa 12-Oct-2003:</p>
+
+  
+<pre>Subject: Re: COM - Excel: What happens if users closes workbook externally? <br>&gt; I have a problem with managing the interchange between COM/Excel and<br>&gt; Python if the user closes the workbook externally.<br>&gt;<br>&gt; Everything works fine as long as the user only uses the exit keys I've<br>&gt; provided to close the Excel apps and COM interfaces. But I really need<br>&gt; the ability to manage the workbook if someone closes it using the<br>&gt; 'exit' command or the right/upper 'x' from within the excel<br>&gt; spreadsheet.<br>&gt;<br>&gt; When that happens, the workbook is lost, but the interface between<br>&gt; python and the COM server stays open. So when I go back later and try<br>&gt; to update the sheet, of course it's not there. But I don't know how to<br>&gt; monitor the status of the workbook to see if I need to create another<br>&gt; one or use the initial one.<br>&gt;<br>&gt; I've tried different ways of checking to see if the workbook is still<br>&gt; active, but nothing has worked. Is there anyway to bind the 'exit' and<br>&gt; 'x' from the excel spreadsheet to functions within my python script so<br>&gt; that I'll know when the workbook is closed? Or is there a better way<br>&gt; to handle this scenario. Unfortunately, simply telling them not to do<br>&gt; it that way is not an option.<br>
+<p>There should be a way to receive the close window event. There<br>is a test file in the win32 distribution named 'testMSOfficeEvents.py'<br>which has handlers like</p>def OnQuit(self):<br>    self.seen_events["OnQuit"] = None<br>    stopEvent.set()<br><br><p>Given some of the other events in that file I found<br>http://www.as-ltd.co.uk/xllplus-online/CXllApp_Methods.htm<br>which suggests you should look at the OnWorkbookBeforeClose<br>event.</p><p>Andrew: dalke@dalkescientific.com</p>
+  </pre>
+
+</div>
+
+<hr><h2>Links to other sites</h2>
+
+<li><a href="http://www.pyxll.com/docs/macros.html">pyxll</a> - Macros defined with PyXLL can be called from Excel the same way as any other Excel macros.
+
+<hr><pre>
+Author: Mark Carter
+Update: 29-Sep-2012
+</pre>
+</body>
+</html>

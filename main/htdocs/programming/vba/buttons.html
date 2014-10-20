@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html><head>
+	<meta http-equiv="CONTENT-TYPE" content="text/html; charset=iso-8859-1">
+	
+	<title>Excel</title><meta name="AUTHOR" content="Mark"></head>
+
+<body bgcolor="#ffffff">
+
+<a href="../../index.html">Home</a> : 
+<a href="../programming.htm">programming</a>  :
+<a href="vba.htm">vba</a>
+
+
+
+
+<p>Button manipulation in Excel.</p>
+<h1>Button cell position</h1>
+<p>How to find the Excel cell where a button is clicked by the user:</p>
+<p>Using the cell which has a button:</p>
+
+<pre>    Dim r as Range<br>    Set r = ActiveSheet.Buttons(Application.Caller).TopLeftCell<br></pre>
+
+You can then manipulate it as a standard Range. E.g.
+<pre>   rowNum = r.Row 'row number for the button<br>   cellValue = r.Value 'its value<br></pre>
+
+
+<h1>Retrieving buttons by text</h1>
+<p>How to retrieve a button object which has a specified property:</p>
+<p>Create a button called "My Button" on Sheet1 of an Excel spreadsheet. 
+  Copy the code below into a module. Then call GetButton_caller().</p>
+<pre>
+Public Sub GetButton_caller()
+    Dim ws As Worksheet
+    Dim b As Button
+    Set ws = Sheets("Sheet1")
+    
+    Set b = GetButton(ws, "My Button")
+    MsgBox b.Name 'Its "true" name
+    
+End Sub
+
+
+Public Function GetButton(ws As Worksheet, button_text As String) As Button
+'Retrieve a button having a specified text caption.
+    
+    Dim xlShapes As Excel.Shapes
+    Dim xlShape As Excel.Shape
+    Set xlShapes = ws.Shapes
+
+    For Each xlShape In xlShapes
+        If xlShape.Type = 8 Then ' it is a command button
+            If (xlShape.AlternativeText = button_text) Then
+                Set GetButton = ws.Buttons(xlShape.Name)
+            End If
+        End If
+    Next
+
+End Function
+</pre>
+<hr>
+<small>Date: 06-Apr-2003</small><br><h2>&nbsp; </h2>
+</body></html>

@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html><head> <meta http-equiv="CONTENT-TYPE" content="text/html; charset=iso-8859-1">
+ <title>Regex</title><meta name="AUTHOR" content="Mark"></head>  <body bgcolor="#ffffff"> 
+
+
+<a href="../../index.html">Home</a> : 
+<a href="../programming.htm">programming</a>  :
+<a href="vba.htm">vba</a>
+
+
+<p>Regular expressions in Visual Basic.</p>
+
+<h2>Visual Basic for Applications</h2>
+
+<ol>
+	<li>In the code editor, select menu item Tools &gt; References.
+	</li><li>Check item Microsoft VBScript Regular Expressions.
+</li></ol>
+
+This is known to work for Office 2000.
+
+
+<h2>Visual Basic 6.0</h2>
+
+
+<pre>' Inspired from www.Planet-Source-Code.com<br><br>' 1.0 21-Dec-2002 Mark Carter<br><br><br>' Edit the vbp project file in notepad to include the following line near the<br>' top:<br>Reference=*\G{3F4DACA7-160D-11D2-A8E9-00104B365C9F}#5.5#0#..\..\..\..\WINDOWS\system32\vbscript.dll\3#Microsoft<br>VBScript Regular Expressions 5.5<br><br>' ... so that the .vbp will look something like:<br>Type=Exe<br>Form=Form1.frm<br>Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#..\..\..\..\WINDOWS\System32\stdole2.tlb#OLE Automation<br>Reference=*\G{3F4DACA7-160D-11D2-A8E9-00104B365C9F}#5.5#0#..\..\..\..\WINDOWS\system32\vbscript.dll\3#Microsoft VBScript Regular Expressions 5.5<br>IconForm="Form1"<br>' etc.<br></pre>
+
+<h2>Typical Usage</h2>
+
+You may want the following stuff in your code:
+
+<pre>Dim re As RegExp<br>Set re = New RegExp<br>Dim s As String<br><br>re.Pattern = " m.*carter"<br>re.Global = False<br>re.IgnoreCase = True<br>re.MultiLine = True<br><br>s = "hello from mark carter's world"<br><br>Dim matches As MatchCollection<br>Set matches = re.Execute(s)<br><br>Dim mcmatch As Match<br>For Each mcmatch In matches<br>    Debug.Print = mcmatch.Value<br>Next<br></pre>
+
+
+<hr>
+<small>Date: 15-Jul-2003 </small> 
+</body></html>

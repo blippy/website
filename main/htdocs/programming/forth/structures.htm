@@ -1,0 +1,39 @@
+<html><head>
+  <title>Forth Structures</title>
+ </head>
+
+<body>
+
+<a href="../../index.html">Home</a> : <a href="../programming.htm">programming</a> : <a href="forth.htm">forth</a>
+
+
+<h1>Forth Structures</h1>
+
+<pre>
+: +field ( n <"name"> -- ) \ Exec: addr -- 'addr
+    create over , + does> @ + ;
+
+0
+    cell +field x
+    cell +field y
+constant PointStruct
+
+PointStruct
+    cell +field color
+constant PixelStruct
+
+create pixel PixelStruct allot
+
+10 pixel x !
+20 pixel y !
+$AABBCC pixel color !
+</pre>
+
+
+<hr><pre>
+Author:  Mark Carter
+Created: 30-Oct-2010
+Updated: 30-Oct-2010
+</pre>
+
+</body></html>

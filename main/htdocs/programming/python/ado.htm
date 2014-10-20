@@ -1,0 +1,173 @@
+<html><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <LINK REL=StyleSheet HREF="../../style.css" TYPE="text/css">
+  <title>Python and ADO</title>
+</head>
+
+<body>
+
+<a href="../../index.html">Home</a> : 
+<a href="../programming.htm">programming</a> :
+<a href="python.htm">python</a>
+
+<h1 >Python and ActiveX Data Objects (ADO)</h1>
+
+This page is
+intended to give the basics on using <a href="http://www.python.org/">Python</a>
+to connect to an MS Access 2000 database via Microsoft's ActiveX Data
+Objects (ADO). There are several reasons you might want to do this. ADO
+is lighter and it tends to be a bit and faster than DAO, unlike DAO it
+can easily be used with other databases (SQL Server, Oracle, MySQL,
+etc.), it can be used with XML and text files and pretty much any data
+at all, and Microsoft will be supporting it for a longer time than DAO.
+For this article to make sense, you should be mildly familiar with
+Python, and you should have installed the PythonWin IDE and Windows
+extensions. Probably having MS Access would be useful as well.
+<hr>
+<h4>Table of Contents</h4>
+
+<ol>
+  <li><a href="#1">Running MakePy</a></li>
+  <li><a href="#2">DSN</a></li>
+  <li><a href="#3">Opening a Recordset</a>
+     </li>
+  <li><a href="#4">Looking at the Recordset</a>
+     </li>
+  <li><a href="#5">Adding new Records</a>
+     </li>
+  <li><a href="#6">Database Table Information</a>
+     </li>
+  <li><a href="#7">Closing Connections</a>
+     </li>
+  <li><a href="#8">Using SQL with ADO</a>
+     </li>
+  <li><a href="#9">Getting the RecordCount</a>
+     </li>
+</ol>
+</div>
+<hr align="left">
+<div align="left">
+<ol>
+  <a name="1"></a> 
+  <li><span class="">The
+first thing to do is run the makepy utility. It isn't necessary, but it
+improves speed and makes life in the PythonWin IDE that much easier. To
+do this select </span><font class="" color="maroon">COM
+Makepy Utility</font><span class="">
+from the PythonWin tools menu, and then select </span><font class="" color="maroon">Microsoft
+ActiveX Data Objects 2.5 Library</font><span class="">.</span>
+     </li>
+</ol>
+</div>
+<ol>
+  <li> <a name="2"></a>
+    <div align="left">Next
+you will need a <i>Data Source
+Name</i> [DSN] and a connection
+object. [I tend to use DSN-Less connection strings (as opposed to
+system DSNs as it improves performance and makes code portable)]<br>
+For MS Access you can just copy the DSN below. For other databases, or
+for more advanced options like passwords and the like go to [<font color="blue"><tt>Control
+Panel | Administrative Tools | Data Sources (ODBC)</tt></font>].
+From there you can set up a system DSN. You can then either use it as a
+system DSN, or copy it (it is just a text file) into a string and make
+a DSN-Less connection string.&nbsp; 
+    <pre> &gt;&gt;&gt; <font color="#000080">import</font> win32com.client<br> &gt;&gt;&gt; conn = win32com.client.Dispatch(r<font color="#990000">'ADODB.Connection'</font>)<br> &gt;&gt;&gt; DSN = <font color="#990000">'PROVIDER=Microsoft.Jet.OLEDB.4.0;DATA SOURCE=C:/MyDB.mdb;'</font><br>&gt;&gt;&gt; conn.Open(DSN)<br></pre>
+    With these set up
+access to the database is fairly straight forward. 
+    </div>
+    <p align="left"><a name="3"></a></p>
+  </li>
+  <li>
+    <div align="left">The
+next task is to open a Recordset. For fancy stuff like joins and
+whatnot, you can use SQL <font color="maroon"><tt>SELECT
+* FROM table_name</tt></font>
+type statements, or just use the table name surrounded by brackets <font color="maroon"><tt>[]</tt></font>
+    
+    <pre> &gt;&gt;&gt; rs = win32com.client.Dispatch(r<font color="#990000">'ADODB.Recordset'</font>)<br> &gt;&gt;&gt; rs_name = <font color="#990000">'MyRecordset'</font><br>&gt;&gt;&gt; rs.Open(<font color="#990000">'['</font> + rs_name + <font color="#990000">']'</font>, conn, 1, 3)<br> </pre>
+    <i>[The
+    <font color="blue"><tt>1</tt></font>
+and the <font color="blue"><tt>3</tt></font>
+are constants for <font color="blue"><tt>adOpenKeyset</tt></font>
+and <font color="blue"><tt>adLockOptimistic</tt></font>
+and are well beyond the scope of this tutorial. I typically use these
+settings as defaults, but your mileage may vary. Pick up a book on ADO
+for details.]</i> 
+    </div>
+    <p align="left"><a name="4"></a></p>
+  </li>
+  <li>
+    <div align="left">With
+the recordset open you can examine the field names/indices like ... 
+    <pre> &gt;&gt;&gt; flds_dict = {}<br> &gt;&gt;&gt; <font color="#000080">for</font> x <font color="#000080">in</font> range(rs.Fields.Count):<br> ... flds_dict[x] = rs.Fields.Item(x).Name<br> </pre>
+A field's type and size are returned by ...
+    <pre> &gt;&gt;&gt; <font color="#000080">print</font> rs.Fields.Item(1).Type<br> 202 <font color="#00c000"># 202 is a text field</font><br>&gt;&gt;&gt; <font color="#000080">print</font> rs.Fields.Item(1).DefinedSize<br> 50 <font color="#00c000"># 50 Characters</font>
+    </pre>
+    </div>
+    <p align="left"><a name="5"></a></p>
+  </li>
+  <li>
+    <div align="left">Actual
+work can be done as well. Adding new records to recordsets can be done
+both with INSERT INTO (see below) statements, or directly using the
+AddNew() and Update() methods. 
+    <pre> &gt;&gt;&gt; rs.AddNew()<br> &gt;&gt;&gt; rs.Fields.Item(1).Value = <font color="#990000">'data'</font><br>&gt;&gt;&gt; rs.Update()<br></pre>
+    These values can be
+also be returned. 
+    <pre> &gt;&gt;&gt; x = rs.Fields.Item(1).Value<br> &gt;&gt;&gt; <font color="#000080">print</font> x<br> 'data'<br> </pre>
+So, if one wants to create a new Record, and know what number an
+AutoNumber field has generated for it without having to query the
+database ...
+    <pre> &gt;&gt;&gt; rs.AddNew()<br> &gt;&gt;&gt; x = rs.Fields.Item(<font color="#990000">'Auto_Number_Field_Name'</font>).Value <br> <font color="#00c000"># x contains the AutoNumber</font><br>&gt;&gt;&gt; rs.Fields.Item(<font color="#990000">'Field_Name'</font>).Value = <font color="#990000">'data'</font><br>&gt;&gt;&gt; rs.Update()<br></pre>
+    </div>
+    <p align="left"><a name="6"></a></p>
+  </li>
+  <li>
+    <div align="left">You
+can get a list of the Tables in a Database using ADO. 
+    <pre> &gt;&gt;&gt; oCat = win32com.client.Dispatch(r<font color="#990000">'ADOX.Catalog'</font>)<br> &gt;&gt;&gt; oCat.ActiveConnection = conn<br> &gt;&gt;&gt; oTab = oCat.Tables<br> &gt;&gt;&gt; <font color="#000080">for</font> x <font color="#000080">in</font> oTab:<br> ... <font color="#000080">if</font> x.Type == <font color="#990000">'TABLE'</font>:<br> ... <font color="#000080">print</font> x.Name<br> </pre>
+    </div>
+    <p align="left"><a name="7"></a></p>
+  </li>
+  <li>
+    <div align="left">Close
+the connection. Notice that to close this connection the 'C' is upper
+case, whereas to close a file opened with python the 'c' is lower case.
+    
+    <pre> &gt;&gt;&gt; conn.Close()<br> </pre>
+    </div>
+    <p align="left"><a name="8"></a></p>
+  </li>
+  <li>
+    <div align="left">To
+use SQL to INSERT or UPDATE data, use a Connection object directly. 
+    <pre> &gt;&gt;&gt; conn = win32com.client.Dispatch(r<font color="#990000">'ADODB.Connection'</font>)<br> &gt;&gt;&gt; DSN = <font color="#990000">'PROVIDER=Microsoft.Jet.OLEDB.4.0;DATA SOURCE=C:/MyDB.mdb;'</font><br>&gt;&gt;&gt; sql_statement = <font color="#990000">"INSERT INTO [Table_Name] <br> ([Field_1], [Field_2]) VALUES ('data1', 'data2')"</font><br>&gt;&gt;&gt; conn.Open(DSN)<br>&gt;&gt;&gt; conn.Execute(sql_statement)<br>&gt;&gt;&gt; conn.Close()<br></pre>
+    </div>
+    <p align="left"><a name="9"></a></p>
+  </li>
+  <li>
+    <div align="left">Here
+is a last example that often seems to be a sticking point with ADO.
+Generally, if one wants to get the RecordCount of a table, one must
+move through all of the records counting them along the way like ... 
+    <pre> &gt;&gt;&gt; <font color="#00c000"># See example 3 above for the set-up to this </font><br>&gt;&gt;&gt; rs.MoveFirst()<br>&gt;&gt;&gt; count = 0<br>&gt;&gt;&gt; <font color="#000080">while</font> 1:<br> ... <font color="#000080">if</font> rs.EOF:<br> ... <font color="#000080">break</font><br>... <font color="#000080">else</font>:<br> ... count = count + 1<br> ... rs.MoveNext()<br> </pre>
+    Aside from being
+horribly inefficient, if the recordset is empty, moving to the first
+record will generate an error. ADO provides a way to correct this.
+Before opening the recordset, set the CursorLocation to 3. After
+opening the recordset, the recordcount will be available. 
+    <pre> &gt;&gt;&gt; rs.Cursorlocation = 3 <font color="#00c000"># don't use parenthesis here</font><br>&gt;&gt;&gt; rs.Open(<font color="#990000">'SELECT * FROM [Table_Name]'</font>, conn) <font color="#00c000"># be sure conn is open</font><br>&gt;&gt;&gt; rs.RecordCount <font color="#00c000"># no parenthesis here either</font><br>186<br></pre>
+    <i>[Again,
+the <font color="blue"><tt>3</tt></font>
+is a constant.]</i> </div>
+  </li>
+</ol>
+
+
+
+<hr><pre>
+Author:  Mark Carter
+Update:  22-Jun-2009
+</pre>
+</body></html>

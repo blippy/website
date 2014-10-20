@@ -1,0 +1,99 @@
+<html><head>
+  <LINK REL=StyleSheet HREF="style.css" TYPE="text/css">
+  <title>Ssh</title>
+</head>
+<body>
+
+<p><a href="index.html">Home</a></p>
+
+<h1>Ssh</h1>
+
+<hr><h2>Generate keys</h2>
+<pre>ssh-keygen -t rsa</pre>
+
+<hr><h2>Install public key on remote host</h2>
+
+Automatically install your public key to the remote host (this actually is included in the openssh package):
+<pre>
+    ssh-copy-id user@remotehost [-p nnnn]
+</pre>
+
+<hr><h2>Disable ssh timeout</h2>
+
+<h3>Server side:</h3>
+Works on Debian (confirmed on 04-apr-2012). On the server, edit <code>/etc/ssh/sshd_config</code> so that it contains the following lines:
+<pre>
+PermitRootLogin no
+ClientAliveInterval 30
+TCPKeepAlive yes 
+ClientAliveCountMax 99999
+AllowUsers user1
+</pre>
+Restart ssh:
+<pre>
+   /etc/init.d/ssh restart
+</pre>
+
+<h3>Client side</h3>
+
+The server side tweak should be sufficient in itself. Apply this
+client-side fix only if you do not have access to root privileges on
+the remote machine. On the local machine,
+edit <code>/etc/ssh/ssh_config</code> so that it contains the
+following line:
+
+<pre>
+ServerAliveInterval 100
+</pre>
+
+<a href="http://docs.oseems.com/application/ssh/disable-timeout">External link</a>
+
+
+<hr><h2>User's ~/.ssh directory</h2>
+
+<h3>~/.ssh/config file</h3>
+<pre>
+Host *
+    ServerAliveInterval 300
+    ServerAliveCountMax 2
+
+Host klein
+        Port 2222
+
+Host vivo
+        Port 2222
+</pre>
+
+<h3>Fix mangled file permissions</h3>
+
+<pre>
+#!/usr/bin/env bash
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/id_rsa
+chmod 644 ~/.ssh/id_rsa.pub
+chmod 644 ~/.ssh/authorized_keys
+chmod 644 ~/.ssh/known_hosts
+</pre>
+
+<hr><h2>Fuse</h2>
+
+Assuming ssh has been set up on the remote machine, fuse only needs
+installation on the local machine:
+<pre>   sudo apt-get install sshfs</pre>
+
+Typical user usage might be:
+<pre>
+sshfs hostname: mountpoint
+sshfs cubietruck:/home/mcarter ~/cubie -p 2222
+
+fusermount -u mountpoint
+fusemount -u ~/cubie
+</pre>
+
+<hr><pre>
+Author:  Mark Carter
+Created: 04-Apr-2012
+Updated: 18-Aug-2014
+</pre>
+</body>
+</html>

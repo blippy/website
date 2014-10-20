@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Squeak</title>
+</head>
+
+<body>
+<a href="../../index.html">Home</a> : <a href="../programming.htm" >programming</a> : <a href="smalltalk.htm" >smalltalk</a>
+
+<h1>Squeak</h1>
+
+
+<hr><h2>GUI Builder</h2>
+
+<a href="GuiBuilder.st">GuiBuilder.st</a> lets you build a GUI. Very simple stage so far. 
+Actually it really ought to be build using BasicButtons instead of SimpleButtonMorphs.
+
+
+<hr><h2>HTTP client-side scripting</h2>
+
+Use SqueakMap Package Loader (LMB &gt; Open &gt; SqueakMap Package Loader) to
+load package HTTPClient. Then install it.
+
+A typical script might look like:
+<pre>h := HTTPClient httpGetDocument: 'www.google.com' .
+d := h content .
+Transcript show: d.</pre> 
+
+
+<hr><h2>Stdin/stdout</h2>
+
+You can get these going by using OSProcess. Install it using
+<code>SARInstaller installSAR:  'OSProcessV4-3-7.sar'</code> .
+
+
+
+<hr><h2>Strings</h2>
+
+<h3>Concatenating</h3>
+
+<pre>s := ''.
+s := s, 'foo'.
+s := s, 'bar'. 
+s inspect . </pre>
+
+There is a faster way of doing it, though, using 
+<a href="http://article.gmane.org/gmane.comp.lang.smalltalk.squeak.beginners/5354">streams</a> .
+
+<h3>Substrings</h3>
+
+<pre>s := 'asdf,aw' .
+t:= s subStrings: ',' . 
+Transcript show: t .</pre>
+prints
+<pre>an OrderedCollection('asdf' 'aw')</pre>
+
+<hr><h2>System Window</h2>
+
+If you want a system window that looks a bit like this:
+
+<p><img src="squeak-syswin.png" alt=""></p>
+
+then you can achieve this with the following code:
+
+<pre>win :=  SystemWindow new.
+win openInWorld;
+topLeft: 0@0;
+height: 300;
+width: 300;SimpleButtonMorphs
+color: Color lightGreen;
+borderColor: Color black;
+setLabel: 'squeakity squak'.</pre>
+
+
+<hr><pre>
+Author:  Mark Carter
+Created: 11-Jan-2009
+Updated: 19-Jan-2009
+</pre>
+</body>
+</html>

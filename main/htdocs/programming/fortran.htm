@@ -1,0 +1,101 @@
+<html><head>
+    <LINK REL=StyleSheet HREF="../style.css" TYPE="text/css">
+    <title>Fortran</title>
+</head>
+
+<body>
+<a href="../index.html">Home</a> : <a href="programming.htm" >Programming</a>
+
+<h1>Fortran</h1>
+
+"I don't know what the language of the year 2000 will look like, but I
+know it will be called Fortran." -- Tony Hoare
+
+<hr><h2>Arrays</h2>
+By convention, Fortran arrays are indexed from 1 and up.
+
+
+<hr><h2>FGSL</h2>
+
+GSL is the Gnu Scientific Library. FGSL is the Fortran interface to it. 
+
+<p>Setting up FGSL 0.9.4  + GSL 1.15 + Slackware 13.37. There can be library incompatability problems, so I compiled GSL and FGSL from source. Compilation was straightforward and obvious. Suppose you have a file <code>stats.f90</code>:
+<pre>
+program stats
+  use fgsl 
+  implicit none
+  real(fgsl_double) :: data(5) = (/17.2D0, 18.1D0, 16.5D0, 18.3D0, 12.6D0 /)
+  real(fgsl_double) :: mean, variance, largest, smallest
+
+  mean     = fgsl_stats_mean(data, 1_fgsl_size_t, 5_fgsl_size_t)
+  variance = fgsl_stats_variance(data, 1_fgsl_size_t, 5_fgsl_size_t)
+  largest  = fgsl_stats_max(data, 1_fgsl_size_t, 5_fgsl_size_t)
+  smallest = fgsl_stats_min(data, 1_fgsl_size_t, 5_fgsl_size_t)
+  
+  write(6, '(''The dataset is '',5(F9.5))') data
+  write(6, '(''The sample mean is '',F9.5)') mean
+  write(6, '(''The estimated variance is '',F9.5)') variance
+  write(6, '(''The largest value is '',F9.5)') largest
+  write(6, '(''The smallest value is '',F9.5)') smallest
+end program stats
+</pre>
+
+Compile it using
+<pre>
+g95 -cpp --intrinsic-modules-path /usr/include/g95 \
+-o stats stats.f90 -lfgsl_g95 \
+-L/usr/local/lib -lgsl -lgslcblas 
+</pre>
+
+
+<hr><h2>Read</h2>
+
+<h3>Error and end-of-file conditions</h3>
+
+
+In case of file error (e.g. end of file), do a jump:
+<pre>
+DO
+READ(UNIT=IN, FMT=*, ERR=999) VOLTS, AMPS
+...
+END DO
+999 CONTINUE
+</pre>
+It is also possible to use <code>IOSTAT</code> to find out what the error was. <a href="http://www.univ-orleans.fr/EXT/ASTEX/astex/doc/en/prof77/html/prse65.htm">xlink</a>
+
+<h3>Internal read</h3>
+
+If you want to convert from a string to a number, you need to perform a "Fortran internal read", like so:
+<pre>
+program fir ! "fortran internal read"
+  real v
+  character*20 :: inp
+  inp = "666.666"
+  read(inp, fmt = *), v
+  print *, v
+end program fir
+</pre>
+
+
+<hr><h2>Links to other sites</h2>
+
+<li><a href="http://www.sdsc.edu/~tkaiser/f90.html#Kind%20facility">Advanced Fortran 90</a> - quite extensive
+
+
+<li><a href="http://flibs.sourceforge.net/">flibs</a> - a collection of fortran modules on Sourceforge
+
+<li><a href="http://fortranwiki.org/fortran/show/Libraries">Libraries</a> -  page on Fortran Wiki linking to a whole host of libraries, inc FGSL, flibs, BLAS, even a JSOn library
+
+<li><a href="http://cs.ubishops.ca/ljensen/fortran/fortran.htm">Lin Jensen's</a> Fortran notes
+
+<li><a href="http://www.compileonline.com/compile_fortran_online.php">Online</a> compilation and execution of Fortran-95 code
+
+<li><a href="http://www1.gantep.edu.tr/~andrew/ep241/docs/scope/">scope</a> - scoping rules at the module and subroutine level
+	  
+<hr><pre>
+Author:  Mark Carter
+Created: 22-Nov-2011
+Updated: 16-Sep-2014
+</pre>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<html><head>
+    <LINK REL=StyleSheet HREF="../style.css" TYPE="text/css">
+    <title>Tcl</title></head>
+<body>
+
+<a href="../index.html">Home</a> : <a href="programming.htm" >Programming</a>
+
+<h1>Tcl</h1>
+
+My notes on Tcl.
+
+
+<hr><h2>Socket programming</h2>
+
+<pre>
+socket -server handler 9999
+proc handler {fd clientaddr clientport} {
+   set t [clock format [clock seconds]]
+   puts $fd "Hello $clientaddr:$clientport, current date is $t"
+   close $fd
+}
+vwait forever
+</pre>
+
+
+<hr><h2>Links to other sites</h2>
+
+
+<li><a href="http://packages.debian.org/wheezy/bwidget">bwidget</a> - Debian package: The BWidget toolkit is a high-level widget set for Tcl/Tk. It contains widgets such as progress bars, 3D separators, various manager widgets for top levels, frames, paned or scrolled windows, button boxes, notebooks or dialogs as well as composite widgets such as combo boxes, spin boxes and tree widgets. 
+
+<li><a href="http://www.maplefish.com/todd/tcl_net_idioms.html">High Performance Networking Servers</a> -  excellent tutorial on creating network server software using Tcl
+
+<li><a href="" >Tcl the Misunderstood</a> - explains why Tcl is actually quite powerful.
+
+<li><a href="http://tcllib.sourceforge.net/" >tcllib</a> - core development home for the tcllib standardized Tcl library - a 
+set of pure-Tcl extensions that you can use to become even more productive with Tcl. It contains many interesting libraries,
+too numerous to mention, but I'll present some that particularly caught my attention: <a href="http://tcllib.sourceforge.net/doc/struct_list.html" >list</a> - procedures for manipulating lists, including performing SQL-like joins on lists
+
+
+<li><a href="http://code.google.com/p/tcltext/" >tcltext</a> - Tickle Text is a fast, lightweight text editor with a vast array of features for editing code (such as templates for Tcl, Perl, Python, HTML, and LaTeX and the ability to open various shells), moving scripts and Web pages to or from your server with FTP, exporting to PDF, writing LaTeX, posting to livejournal, insanejournal, and more. 
+
+<li><a href="http://math-www.uni-paderborn.de/~axel/tkinfo/" >TkInfo</a> - Tk browser for info files
+
+<li><a href="http://sourceforge.net/projects/vtcl/" >Visual Tcl</a> - application development environment and GUI builder. Discussion and possible alternatives 
+documented <a href="http://wiki.tcl.tk/1932" >here</a>.
+
+
+<hr><pre>
+Author:  Mark Carter
+Created: 24-Oct-2010
+Updated: 04-May-2012
+</pre>
+</body>
+</html>

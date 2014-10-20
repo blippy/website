@@ -1,0 +1,45 @@
+<html><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <LINK REL=StyleSheet HREF="../../style.css" TYPE="text/css">
+  <title>large</title></head>
+<body>
+
+
+<a href="../../index.html">Home</a> : 
+<a href="../programming.htm">programming</a> :
+<a href="chicken.htm">chicken</a>
+
+
+<h1>Large</h1>
+
+Programming "in the large" - i.e. modularisation and packaging
+
+<hr><h2>Compiling/interpretation</h2>
+
+Suppose I have two files, foo.scm:
+<pre>
+(use extras)
+(define (greet)
+  (write-line "hello world"))
+</pre>
+and bar.scm:
+<pre>
+(greet)
+</pre>
+Obviously, bar.scm depends on foo.scm. The way to get things to work from the interpreter is:
+<pre>csi foo.scm bar.scm</pre>
+For compilation:
+<pre>csc -prologue foo.scm bar.scm</pre>
+
+<hr><h2>Links to other sites</h2>
+
+<li><a href="http://wiki.call-cc.org/eggref/4/system">system</a> - egg inspired by Common Lisp DEFSYTEM macro.
+
+
+<hr><pre>
+Author:  Mark Carter
+Created: 27-Mar-2012
+Updated: 06-May-2012
+</small>
+</body>
+</html>

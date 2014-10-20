@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html><head> <meta http-equiv="CONTENT-TYPE" content="text/html; charset=iso-8859-1">
+ <title>Connection Strings</title>
+
+<meta name="AUTHOR" content="Mark"></head>  <body bgcolor="#ffffff"> 
+
+<p>
+<a href="../../index.html">Home</a> 
+: <a href="../computing.html">Computing</a>
+: <a href="vb2008.htm">VB2008</a>
+</p> 
+
+
+<h1>Connection Strings</h1>
+
+<p>Setting database connection strings at runtime</p>
+
+
+<pre>
+Connection strings are read-only by default
+
+
+
+Create a connection string as usual
+
+Now look in Solutions Explorer > My Project > Settings . You will see
+the connection string listed there.
+
+You can access it using My.Settings.WhateverConnectionString, but you
+can't set it, because it is a read-only property.
+
+You need to add an event handler:
+
+In the settings window, hit the button View Code (or hit F7). This
+should bring up the code window.
+
+From the dropdowns, select (MYSettings Events) , SettingsLoaded. This
+creates a sub called MySettings_SettingsLoaded . You can use this sub
+to manipulate the settings when the application is launched.
+
+You still can't do 
+	My.Settings.WhateverConnectionString = fooString
+because the property is still read-only. But what you can do is
+	Me.Item("WhateverConnectionString") = fooString
+which achieves the result you were looking for.
+
+If you want to be able to assign the connection string dynamically
+during runtime, rather than at statup, then a good strategy would be
+to create a property ...
+
+In Partial Friend NotIheritable Class MySettings, add something like:
+  Public WriteOnly Property RunTimeConnectionString() as String
+    Set(ByVal Value as String)
+      My.Settings("WhateverConnectionString") = Value
+    End Set
+  End Property
+
+This will cause the property RunTimeConnectionString to be available
+in Intellisense. So if you wanted to set the connection by, say,
+clicking a button, you can set the button's click event's code to be
+something like
+
+  My.Settings.RunTimeConnectionString = fooString
+
+</pre>
+
+
+
+
+<hr><pre>
+Author:  Mark Carter
+Created: 06-Sep-2009
+Updated: 06-Sep-2009
+</pre>
+</body></html>

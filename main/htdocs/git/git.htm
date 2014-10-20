@@ -1,0 +1,73 @@
+<html><head>
+    <LINK REL=StyleSheet HREF="../style.css" TYPE="text/css">
+    <title>git</title>
+</head>
+
+<body>
+<a href="../index.html">Home</a>
+
+<h1>Git</h1>
+
+Things I do the most using git.
+
+
+<hr><h2>Fetching vs Pulling</h2>
+git pull = git fetch + git merge, effectively
+
+
+
+
+
+<hr><h2>Merging from an experimental (local) branch</h2>
+
+<p>To merge from another branch (e.g. exp) to the current branch: <code>git merge exp</code>
+<p>Then, to delete the exp branch: <code>git branch -d exp</code>
+
+
+<hr><h2>Patches creation</h2>
+
+<li>Method 1: <code>git format-patch master --stdout > fix_empty_poster.patch</code>
+<li>Method 2: <code>git format-patch master</code>
+<li>Method 3: <code>git diff master</code>
+
+
+
+
+<hr><h2>Remote branches</h2>  
+
+To push a non-master branch to a remote repo, do:
+<pre>  git push <reponame> <branchname></pre>
+For example, if you want to push your local dev branch, do
+<pre>  git push origin dev</pre>
+If you wanted to delete the remote branch, type:
+<pre>  git push origin :dev</pre>
+  
+
+<hr><h2>Reverting</h2>
+
+If you want to undo one or more uncommited files: <code>git checkout FILE1 ...</code>
+
+<hr><h2>Tags</h2>
+
+<li>Listing tags: <code>git tag</code>
+   
+<li>Creating tags e.g.: <code>git tag -a v1.4 -m 'version 1.4'</code>
+<li>Pushing tags upstream: <code>git push --tags</code>
+<li>Checking out a tag: <code>git checkout $tagname</code>. When you've finished, go back to whatever branch you were working on before: <code>git checkout master</code>
+  
+<hr><h2>Also on this site</h2>
+  
+<li><a href="config.htm">config</a> - how to configure git
+<li><a href="create.htm">create</a> - including creation of bare repos
+<li><a href="github.htm">github</a> - specific comments on github, and a list of alternatives
+
+
+
+	  
+<hr><pre>
+Author:  Mark Carter
+Created: 13-Nov-2010
+Updated: 05-May-2014
+</pre>
+</body>
+</html>

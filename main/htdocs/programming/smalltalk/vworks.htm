@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>vworks</title>
+</head>
+
+<body>
+<a href="../../index.html">Home</a> : <a href="../programming.htm" >programming</a> : <a href="smalltalk.htm" >smalltalk</a>
+
+
+<h1>VisualWorks Smalltalk</h1>
+
+Notes about constructing GUIs.
+
+Use the painter to create a UI, and a class called HelloGui. Add an
+ActionButton, Label, and InputField. The plan is that the user enters
+something into the input field. When they click the button, that text
+is copied over to the label.
+
+Arrange things as follows:
+<pre>
+ActionButton1: Action: #btnClicked
+Label1: ID: #Label1
+InputField1: ID: #InputField1
+</pre>
+
+Create an instance method in HelloGui called btnClicked. Give it the
+following code:
+<pre>
+btnClicked
+	"	***This is decompiled code.*** 
+	No source was available"
+
+	| t1 |
+	t1 := (self widgetAt: #InputField1) getContents.
+	(self widgetAt: #Label1)
+		labelString: t1.
+	^self
+</pre>
+
+You can now test is out by doing <code> HelloGui new open. </code>
+
+
+
+
+<hr><pre>
+Author:  Mark Carter
+Created: 19-May-2009
+Updated: 19-May-2009
+</pre>
+</body>
+</html>

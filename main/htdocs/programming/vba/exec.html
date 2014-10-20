@@ -1,0 +1,26 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html><head>
+	<meta http-equiv="CONTENT-TYPE" content="text/html; charset=iso-8859-1">
+	
+	<title>exec</title><meta name="AUTHOR" content="Mark"></head>
+
+<body bgcolor="#ffffff">
+
+<a href="../../index.html">Home</a> : 
+<a href="../programming.htm">programming</a>  :
+<a href="vba.htm">vba</a>
+
+<p>Start another program, and wait for it to finish before continuing execution.</p>
+<h2>Method 1</h2>
+<p>This is the simplest method - but I'm concerned that it does not work exactly 
+  right. Its usage has revealed that it does not wait properly. You might therefore 
+  prefer method 2.<br>
+</p>
+<pre>Option Explicit<br><br><br>Private Declare Function ShellExecute Lib "shell32.dll" _<br>   Alias "ShellExecuteA" (ByVal hwnd As Long, ByVal _<br>   lpOperation As String, ByVal lpFile As String, ByVal _<br>   lpParameters As String, ByVal lpDirectory As String, ByVal _<br>   nShowCmd As Long) As Long<br><br>Private Sub Command1_Click()<br>   <br>   If ShellExecute(0, "", "PathAndExe",    "arg1 arg2 arg3 etc", _<br>   "", vbNormalFocus) = 2 Then<br>   End If<br>End Sub</pre>
+<h2>Method 2</h2>
+<p>I have tested the following code, and it works. It is more complicated than 
+  method 1 - so you should use method 1 instead.</p>
+<pre>' The ShellAndWait subroutine uses the Shell function to start the other program. <br>' It calls the OpenProcess API function to connect to the new process and then <br>' uses WaitForSingleObject to wait until the other process terminates. Note that <br>' neither the program nor the development environment can take action during this<br>' wait. <br><br>' After WaitForSingleObject returns, the ShellAndWait subroutine calls CloseHandle <br>' to close the process handle opened by OpenProcess and then exits at which point <br>' the program resumes normal execution. <br><br>' Inspired from www.vb-helper.com<br><br>' 1.0 21-Dec-2002 Mark Carter<br><br> <br><br><br><br>''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''<br>' DECLARATIONS SECTION<br><br>Private Const SYNCHRONIZE As Long = &amp;H100000<br>Private Const INFINITE = &amp;HFFFF 'Wait forever<br> <br>Private Declare Function WaitForSingleObject Lib "KERNEL32" (ByVal hHandle As Long, ByVal dwMilliseconds As Long) As Long<br>Private Declare Function OpenProcess Lib "KERNEL32" (ByVal dwAccess As Long, ByVal fInherit As Integer, ByVal hObject As Long) As Long<br>Private Declare Function CloseHandle Lib "KERNEL32" (hObject As Long) As Long<br><br><br>''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''<br>' CODE SECTION<br><br>' Start the indicated program and wait for it<br>' to finish, hiding while we wait.<br><br>Public Sub ShellAndWait(ByVal program_name As String, _<br>    ByVal window_style As VbAppWinStyle)<br><br>    Dim process_id As Long<br>    Dim process_handle As Long<br><br><br>    ' Start the program.<br>    On Error GoTo ShellError<br>    process_id = Shell(program_name, window_style)<br>    On Error GoTo 0<br><br>    ' Hide.<br>    Me.Visible = False<br>    DoEvents<br><br>    ' Wait for the program to finish.<br>    ' Get the process handle.<br>    process_handle = OpenProcess(SYNCHRONIZE, 0, process_id)<br>    If process_handle &lt;&gt; 0 Then<br>        WaitForSingleObject process_handle, INFINITE<br>        CloseHandle process_handle<br>    End If<br><br>    ' Reappear.<br>    Me.Visible = True<br>    Exit Sub<br><br>ShellError:<br>    MsgBox "Error starting task " &amp; _<br>        program_name &amp; vbCrLf &amp; _<br>        Err.Description, vbOKOnly Or vbExclamation, _<br>        "Error"<br>End Sub<br><br><br>''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''<br>' EXAMPLE CALLER<br><br>Private Sub Command1_Click()<br>    Dim cmd As String<br>    cmd = "mycommand.exe args"<br>    Call ShellAndWait(cmd, vbHide)<br>    MsgBox "Finished", , "Message"<br>End Sub<br>   <br> </pre>
+<hr>
+<small>Date: 06-Apr-2003</small><br><h2>&nbsp; </h2>
+</body></html>

@@ -1,0 +1,45 @@
+<html><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <LINK REL=StyleSheet HREF="../../style.css" TYPE="text/css">
+  <title>web</title></head>
+<body>
+
+
+<a href="../../index.html">Home</a> : 
+<a href="../programming.htm">programming</a> :
+<a href="chicken.htm">chicken</a>
+
+
+<h1>web</h1>
+
+Processing web and html using chicken scheme.
+
+<p><code>htmlprag</code> is an egg for permissive html parsing. An example of extracting data can be found in my project ~/repos/nokilli/barchart. Example methodology:
+<pre>
+(use htmlprag)
+(use mccsl)
+
+(define (process-tree html)
+  (block
+   (define result #f)
+   (let loop ((tree html))
+     (over el tree
+          (set! result (do-something el))
+          (when result (return result))
+          (when (list? el) (loop el))))
+   (return #f)))
+
+(define tree (html->shtml (read-all filename))
+(process-tree html)
+
+</pre>
+
+Note that <code>do-something</code> should not throw an error, but should handle things it cannot understand, otherwise it will abort the <code>process-tree</code> recursion process.
+
+<hr><pre>
+Author:  Mark Carter
+Created: 28-Apr-2012
+Updated: 28-Apr-2012
+</small>
+</body>
+</html>

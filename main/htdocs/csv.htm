@@ -1,0 +1,41 @@
+<html><head>
+  <LINK REL=StyleSheet HREF="style.css" TYPE="text/css">
+  <title>Freeware</title>
+</head>
+<body>
+
+<p><a href="index.html">Home</a></p>
+
+<h1>CSV</h1>
+
+Tools for processing comma-separated values
+
+<p><b>EXTRACT</b> by named column:
+<pre>    csvtool namedcol COLNAME foo.csv</pre>
+
+<p><b>SORT</b> by 5th column (numerical/textual):
+<pre>    csvfix sort -f 5 foo.csv</pre>
+
+<hr><h2>Convert CSV to ODS</h2>
+
+To convert a CSV file to LibreOffice spreadsheet format:
+<pre>    unoconv -f ods myinput.csv</pre>
+<code>unoconv</code> is debian installable
+
+<hr><h2>Links to other sites</h2>
+
+<li><a href="http://code.google.com/p/csvfix/">csvfix</a> - tool for manipulating CSV data
+
+<li><a href="http://csvkit.readthedocs.org/en/latest/index.html">csvkit</a> - converting to and working with CSV. It is inspired by pdftk, gdal and the original csvcut utility. Includes <code>csvsql</code>.
+
+<li><a href="https://code.google.com/p/csvstudio/">csvstudio</a> - pythonic CSV analyser that can perform filters, compute new columns, and more. <a href="http://csvstudio.googlecode.com/hg/csvstudio.pdf">xPDF</a>. I've installed it on mython, so type <code>csvstudio -h</code>
+
+<li>csvtool - I'm using it on Mint 14 (as at 13-Apr-2013)
+
+<hr><pre>
+Author:  Mark Carter
+Created: 19-Jan-2011
+Updated: 09-Feb-2014
+</pre>
+</body>
+</html>

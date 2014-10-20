@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html><head>
+<meta http-equiv="CONTENT-TYPE" content="text/html; charset=iso-8859-1">
+<title>GetFolder</title>
+<meta name="author" content="mark carter">
+</head>
+
+<body style="background-color: rgb(255, 255, 255);">
+
+<a href="../../index.html">Home</a> : 
+<a href="../programming.htm">programming</a>  :
+<a href="vba.htm">vba</a>
+
+<h1>GetFolder</h1>
+
+VBA code to prompt user for a folder.
+
+<pre>
+Function GetFolder(strPath As String) As String
+    Dim fldr As FileDialog
+    Dim sItem As String
+    Set fldr = Application.FileDialog(msoFileDialogFolderPicker)
+    With fldr
+        .Title = "Select a Folder"
+        .AllowMultiSelect = False
+        .InitialFileName = strPath
+        If .Show <> -1 Then GoTo NextCode
+        sItem = .SelectedItems(1)
+    End With
+NextCode:
+    GetFolder = sItem
+    Set fldr = Nothing
+End Function
+</pre>
+
+You call it by using something like:
+
+<pre>
+Private Sub cmdSetOutputDir_Click()
+    Dim InitialFolder As String, NewFolder
+    InitialFolder = GetSetting(APP_NAME, "Settings", "ExportPath", "M:\Finance\Invoices")
+    NewFolder = GetFolder(InitialFolder)
+    If Len(NewFolder) = 0 Then NewFolder = InitialFolder
+    SaveSetting APP_NAME, "Settings", "ExportPath", NewFolder
+    lblDir = NewFolder
+End Sub
+</pre>
+
+
+<hr><h2>Links to other sites</h2>
+
+<a href="http://www.mrexcel.com/forum/showthread.php?t=294728">MrExcel</a> - forum thread from which this source code was obtained.
+
+
+<hr><small><pre>
+Author:  Mark Carter
+Created: 09-Dec-2008
+Updated: 09-Dec-2008
+</pre></small>
+</body>
+</html>

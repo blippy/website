@@ -1,0 +1,53 @@
+<html><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <LINK REL=StyleSheet HREF="../../style.css" TYPE="text/css">
+  <title>format</title></head>
+<body>
+
+
+<a href="../../index.html">Home</a> : 
+<a href="../programming.htm">programming</a> :
+<a href="chicken.htm">chicken</a>
+
+
+
+<h1>format</h1>
+
+Formatting recipes
+
+
+
+<pre>
+  (require-library format)
+  (import (prefix format format:))
+  (format:format #t "~5A" 12) ; #t - puts to current-output-port 
+</pre>
+
+The following extensions are also relevant to formatting: extras,
+format, fmt, srfi-28, srfi-54. Srfi-54 doesn't appear to be in Chicken,
+though.
+
+<p>
+To <b>right-format</b>:
+<pre>
+                                          12345
+  (format:format #f "*~5,@A*" 12.2) =>  "* 12.2*"
+  (format:format #f "*~5,@A*" "hi") =>  "*   hi*"
+  (format:format #f "*~5,'0d*" 42)  =>  "*00042*"
+</pre>
+
+<hr><h2>Numbers</h2>
+<pre>
+                                              1234567
+  (format:format #f "*~7,2A*" 123.4567) =>  "* 123.46*"
+
+</pre>
+
+
+<hr><pre>
+Author:  Mark Carter
+Created: 30-Oct-2012
+Updated: 30-Oct-2012
+</small>
+</body>
+</html>
