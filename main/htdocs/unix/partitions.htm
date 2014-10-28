@@ -11,6 +11,27 @@
 
 <hr><h2>Grub</h2>
 
+<h3>Default</h3>
+
+It is possible to set GRUB_DEFAULT as a string, but I don't remember
+how to detect the possibilities.
+
+<pre>
+
+<b>Set grub to boot on last user-selected menu item:</b>
+# sudo vim /etc/default/grub:
+GRUB_DEFAULT=saved
+GRUB_SAVEDEFAULT=true
+# sudo update-grub # no need to run grub-install again
+
+
+<b>Set default boot item without editing files:</b>
+# sudo grub-set-default &lt;N&gt; # count from 0
+
+</pre>
+
+
+<h3>Other</h3>
 <p>Recreate the configuration if you change disk layout: <code>sudo grub-mk config -o /boot/grub/grub.cfg</code>
 
 <p>Install the new layout: <code>sudo grub-install /dev/sda</code>
@@ -63,7 +84,7 @@ Move Raspberry Pi Root File System (rootfs) From SD Card To Usb / HDD - but it i
 <hr><pre>
 Author:  Mark Carter
 Created: 15-Jun-2013
-Updated: 18-Aug-2014
+Updated: 28-Aug-2014
 </pre>
 </body>
 </html>
