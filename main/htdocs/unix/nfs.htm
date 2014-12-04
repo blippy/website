@@ -11,7 +11,7 @@
 
 Setting up a network file system
 
-<hr><h2>Server (remote) (ernst)</h2>
+<hr><h2>Server (remote) (cubie)</h2>
 
 
 <pre>
@@ -19,8 +19,8 @@ Setting up a network file system
 sudo apt-get install nfs-kernel-server nfs-common
 
 sudo vi /etc/exports:
-/home miro(rw,sync,no_subtree_check)
-/ miro(rw,sync,no_subtree_check)
+/home vivo(rw,sync,no_subtree_check)
+/ vivo(rw,sync,no_subtree_check)
 
 sudo service nfs-kernel-server restart
 
@@ -29,20 +29,20 @@ sudo service nfs-kernel-server restart
 
 
 
-<hr><h2>Local (miro)</h2>
+<hr><h2>Local (vivo)</h2>
 
 <pre>
 # create mount directories:
-sudo mkdir -p /mnt/ernst-home 
-sudo mkdir -p /mnt/ernst-root
+sudo mkdir -p /mnt/cubie-home 
+sudo mkdir -p /mnt/cubie-root
 
 # temporary mount
-sudo mount -t nfs ernst:/home /mnt/ernst-home
-sudo mount -t nfs ernst:/ /mnt/ernst-root
+sudo mount -t nfs cubie:/home /mnt/cubie-home
+sudo mount -t nfs cubie:/ /mnt/cubie-root
 
 # permanent mount in /etc/fstab:
-ernst:/home   /mnt/ernst-home   nfs   rsize=8192,wsize=8192,timeo=14,intr,_netdev       0 0
-ernst:/   /mnt/ernst-root   nfs   rsize=8192,wsize=8192,timeo=14,intr,_netdev       0 0
+cubie:/home   /mnt/cubie-home   nfs   rsize=8192,wsize=8192,timeo=14,intr,_netdev       0 0
+cubie:/   /mnt/cubie-root   nfs   rsize=8192,wsize=8192,timeo=14,intr,_netdev       0 0
 </pre>
 
 
@@ -56,7 +56,7 @@ NFS make simple UID mapping work. Idmapd, Debian [Solved]</a> - Linux Mint forum
 <hr><pre>
 Author:  Mark Carter
 Created: 06-Aug-2013
-Updated: 20-Aug-2013
+Updated: 04-Aug-2014
 </pre>
 </body>
 </html>

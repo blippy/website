@@ -40,6 +40,15 @@ GRUB_SAVEDEFAULT=true
 
 <p>GUI for customising the boot process: <code>sudo grub-customiser</code>
 
+<h2>Menu identification</h2>
+
+Run
+<pre>
+grep ^menuentry /boot/grub/grub.cfg | nl -v 0
+</pre>
+
+Use <code>grub-set-default</code> with the value of N, or use the name.
+
 <hr><h2>Identifying disks</h2>
 
 To see what disks may have been mounted, try <code>sudo fdisk -l</code>. 
@@ -84,7 +93,7 @@ Move Raspberry Pi Root File System (rootfs) From SD Card To Usb / HDD - but it i
 <hr><pre>
 Author:  Mark Carter
 Created: 15-Jun-2013
-Updated: 28-Aug-2014
+Updated: 03-Dec-2014
 </pre>
 </body>
 </html>

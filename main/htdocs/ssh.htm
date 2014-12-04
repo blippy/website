@@ -21,15 +21,19 @@ Automatically install your public key to the remote host (this actually is inclu
 <hr><h2>Disable ssh timeout</h2>
 
 <h3>Server side:</h3>
-Works on Debian (confirmed on 04-apr-2012). On the server, edit <code>/etc/ssh/sshd_config</code> so that it contains the following lines:
+Works on Debian (confirmed on 03-Dec-2014). On the server, edit <code>/etc/ssh/sshd_config</code> so that it contains the following lines:
 <pre>
 PermitRootLogin no
 ClientAliveInterval 30
 TCPKeepAlive yes 
 ClientAliveCountMax 99999
 AllowUsers user1
+Port 2222
 </pre>
-Restart ssh:
+Note that it you can specify multiple <code>Port</code> statements.
+
+
+<p>Restart ssh:
 <pre>
    /etc/init.d/ssh restart
 </pre>
@@ -47,6 +51,34 @@ ServerAliveInterval 100
 </pre>
 
 <a href="http://docs.oseems.com/application/ssh/disable-timeout">External link</a>
+
+<hr><h2>Fuse</h2>
+
+Assuming ssh has been set up on the remote machine, fuse only needs
+installation on the local machine:
+<pre>   sudo apt-get install sshfs</pre>
+
+Typical user usage might be:
+<pre>
+sshfs hostname: mountpoint
+sshfs cubietruck:/home/mcarter ~/cubie -p 2222
+
+fusermount -u mountpoint
+fusemount -u ~/cubie
+</pre>
+
+<hr><h2>Tunneling</h2>
+
+Example where you have ipython3 serving on the remote on port 8888. The server is serving ssh on port 2222, and you want to make the service port 9000 on your local machine. You would issue this command:
+<pre>
+ssh -L 9000:localhost:8888 mcarter@www.markcarter.me.uk -p 2222
+</pre>
+
+In your local browser:
+<pre>
+http://localhost:9000
+</pre>
+
 
 
 <hr><h2>User's ~/.ssh directory</h2>
@@ -75,25 +107,12 @@ chmod 644 ~/.ssh/authorized_keys
 chmod 644 ~/.ssh/known_hosts
 </pre>
 
-<hr><h2>Fuse</h2>
 
-Assuming ssh has been set up on the remote machine, fuse only needs
-installation on the local machine:
-<pre>   sudo apt-get install sshfs</pre>
-
-Typical user usage might be:
-<pre>
-sshfs hostname: mountpoint
-sshfs cubietruck:/home/mcarter ~/cubie -p 2222
-
-fusermount -u mountpoint
-fusemount -u ~/cubie
-</pre>
 
 <hr><pre>
 Author:  Mark Carter
 Created: 04-Apr-2012
-Updated: 18-Aug-2014
+Updated: 03-Dec-2014
 </pre>
 </body>
 </html>
