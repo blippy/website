@@ -1,5 +1,12 @@
 ETC = /etc/nginx/sites-enabled
-.PHONY : install
+HTMD = $(WWW_PDF_DIR)/index.html
+HTMS = htdocs/index.html
+
+.PHONY : all install
+
+all :
+	echo Doing all
+	cp $(HTMS) $(HTMD)
 
 install :
 	ln -s  `pwd`/pdf.cfg /etc/nginx/sites-enabled
