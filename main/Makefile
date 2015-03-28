@@ -8,6 +8,7 @@ DEST = /mnt/cubie-root/var/www/main/htdocs/
 update:
 	echo Updating main
 	#rsync -avz --delete -e ssh -p 2222 `pwd`/htdocs/ cubie::var/ww/main/htdocs/
+	rmjunk
 	mkdir -p $(DEST)
 	rsync -avz --delete `pwd`/htdocs/ $(DEST)
 
