@@ -1,10 +1,11 @@
+from string import Template
 import cherrypy
-from Cheetah.Template import Template
+#from Cheetah.Template import Template
 import pdb
 
 
-class vat(object):
-    def index(self, amount = '100.00', which = "gross", rate = '17.5' ):
+class Vat(object):
+    def index(self, amount = '100.00', grossp = "CHECKED", netp = "", rate = '20.0', **args ):
         templateDef = '''
 <h1>Vat Calculator</h1>
 
@@ -45,25 +46,31 @@ Finished
         #pdb.set_trace()
         t = Template(templateDef) #, searchList=[nameSpace])
 
-        t.amount = amount
+        amount = amount
         try: amountn = float(amount)
         except: amountn = "Error"
 
-        t.rate = rate
+        rate = rate
         try: rate1= 1.0+ float(rate)/100
         except: rate1 = "Error"
 
+        #which = "gross" if grossp == "CHECKED" else "netp"
+        if "which" in args:
+            which = args['which']
+        else:
+            which = "gross"
+        print("which = ", which)
         #pdb.set_trace()
         # calcs
         if which == "net":
-            t.netp = "CHECKED"
-            t.grossp = ""
+            netp = "CHECKED"
+            grossp = ""
             net = amountn
             try: gross = round(net * rate1, 2)
             except: gross = "Error"
         else: # gross
-            t.netp = ""
-            t.grossp ="CHECKED"
+            netp = ""
+            grossp ="CHECKED"
             gross = amountn
             try: net = round(gross / rate1, 2)
             except: net = "Error"
@@ -77,12 +84,13 @@ Finished
             else:
                 return num
 
-        t.net = stringf(net)
-        t.vat = stringf(vat)
-        t.gross = stringf(gross)
+        net = stringf(net)
+        vat = stringf(vat)
+        gross = stringf(gross)
         
         #print str(t)
-        return str(t)
+        d = dict(net = net, vat = vat, gross = gross, amount = amount, rate = rate, grossp = grossp, netp = netp, which = which)
+        return t.safe_substitute(d)
     index.exposed = True
 
 
@@ -95,7 +103,7 @@ def setup_apache_server():
                             'log.error_file': 'site.log',
                             'show_tracebacks': False})
     
-    cherrypy.tree.mount(vat())
+    cherrypy.tree.mount(Vat())
 
 
 

@@ -1,8 +1,9 @@
 .PHONY : run install
 
 run :
-	python3 lucky.py
+	#cd src
+	python3 src/root.py
 
 install :
-	cp lucky.cfg /mnt/cubie-root/etc/nginx/sites-enabled
+	cp apps.cfg /mnt/cubie-root/etc/nginx/sites-enabled
 	ssh vivo sudo service nginx restart

@@ -135,7 +135,7 @@ class Lucky(object):
         succ_ok, succ_f, input_succ = validate(succ_str, "succ_str", "Number successes:")
         fail_ok, fail_f, input_fail = validate(fail_str, "fail_str", "Number fails:")
         form = Template('''
-        <form method="get" action="/index">
+        <form method="get" action="/src/lucky">
         <table>
         $input_bsucc
         $input_bfail
@@ -154,7 +154,7 @@ class Lucky(object):
 
 
         s = Template('''<html><body>
-        <h1><img src = "images/lucky_shamrock.png"> Just luck?</h1>
+        <h1><img src = "/images/lucky_shamrock.png"> Just luck?</h1>
         $intro
         <hr><h2>Inputs</h2>
         $form_str
@@ -178,7 +178,4 @@ class Lucky(object):
     #@cherrypy.expose
     #def
 
-#cherrypy.config.update({'server.socket_host': '127.0.0.1', 'server.socket_port': 9001})
-#cherrypy.config.update('lucky.config')
-#cherrypy.quickstart(HelloWorld())
-cherrypy.quickstart(Lucky(), "/", "lucky.config")
+#cherrypy.quickstart(Lucky(), "/", "lucky.config")
