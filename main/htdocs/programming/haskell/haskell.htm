@@ -27,6 +27,9 @@ runhaskell Setup.hs install
 #Using the module from ghci:
 import Foo.Bar
 
+#Adding user sources from another package:
+cabal sandbox add-source $dir # top level
+cabal install $pkgname
 </pre>
 
 <hr><h2>Blog posts by me</h2>
@@ -55,7 +58,7 @@ list</a> - for Haskell-Beginners
 <hr><pre>
 Author:  Mark Carter
 Created: 22-Mar-2015
-Updated: 06-Apr-2015
+Updated: 14-Apr-2015
 </small>
 </body>
 </html>
