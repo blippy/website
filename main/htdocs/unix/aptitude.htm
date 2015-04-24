@@ -47,9 +47,13 @@ Description: a collection of classic textual unix games
 Remove all unused kernels with apt-get (<a href="http://www.commandlinefu.com/commands/view/10520/remove-all-unused-kernels-with-apt-get">xlink</a>):
 <pre>aptitude remove $(dpkg -l|egrep '^ii linux-(im|he)'|awk '{print $2}'|grep -v `uname -r`)</pre>
 
-<hr><h2>Update</h2>
+<hr><h2>Update to new distribution</h2>
 
-<pre>aptitude update ; aptitude dist-upgrade</pre>
+<pre>
+aptitude update
+aptitude dist-upgrade
+do-release-upgrade -d
+</pre>
 
 
 
@@ -70,7 +74,7 @@ Try taking a look at <code>apt-cache search</code> and <code>apt-get search</cod
 <hr><pre>
 Author:  Mark Carter
 Created: 25-Jan-2009
-Updated: 10-Mar-2013
+Updated: 24-Apr-2015
 </pre>
 </body>
 </html>

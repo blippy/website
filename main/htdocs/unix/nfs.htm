@@ -32,17 +32,19 @@ sudo service nfs-kernel-server restart
 <hr><h2>Local (vivo)</h2>
 
 <pre>
+sudo apt-get install nfs-common
+  
 # create mount directories:
-sudo mkdir -p /mnt/cubie-home 
-sudo mkdir -p /mnt/cubie-root
+sudo mkdir -p /mnt/cubie
+sudo mkdir -p /mnt/vivo
 
 # temporary mount
-sudo mount -t nfs cubie:/home /mnt/cubie-home
-sudo mount -t nfs cubie:/ /mnt/cubie-root
+sudo mount -t nfs cubie:/ /mnt/cubie
+sudo mount -t nfs vivo:/ /mnt/vivo
 
 # permanent mount in /etc/fstab:
-cubie:/home   /mnt/cubie-home   nfs   rsize=8192,wsize=8192,timeo=14,intr,_netdev       0 0
-cubie:/   /mnt/cubie-root   nfs   rsize=8192,wsize=8192,timeo=14,intr,_netdev       0 0
+cubie:/   /mnt/cubie nfs   rsize=8192,wsize=8192,timeo=14,intr,_netdev   0 0
+vivo:/   /mnt/vivo   nfs   rsize=8192,wsize=8192,timeo=14,intr,_netdev   0 0
 </pre>
 
 
@@ -56,7 +58,7 @@ NFS make simple UID mapping work. Idmapd, Debian [Solved]</a> - Linux Mint forum
 <hr><pre>
 Author:  Mark Carter
 Created: 06-Aug-2013
-Updated: 04-Aug-2014
+Updated: 24-Apr-2015
 </pre>
 </body>
 </html>
