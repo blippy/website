@@ -13,12 +13,15 @@
 It is very easy to give a specific user passwordless sudo privileges:
 <pre>
 echo "mcarter ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/mcarter
+
+USE=`whoami` ; echo "$USE ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/$USE
+
 </pre>
 
 
 <hr><pre>
 Author:  Mark Carter
 Created: 30-May-2013
-Updated: 30-May-2013
+Updated: 25-Apr-2015
 </pre>
 </body></html>
