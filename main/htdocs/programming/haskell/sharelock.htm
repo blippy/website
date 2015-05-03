@@ -1,0 +1,64 @@
+<html><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <LINK REL=StyleSheet HREF="../../style.css" TYPE="text/css">
+  <title>Sharelock</title></head>
+<body>
+
+
+<a href="../../index.html">Home</a> 
+: <a href="../programming.htm">programming</a>
+: <a href="haskell.htm">haskell</a>
+
+
+<h1>Sharelock</h1>
+
+Example usage of CSV files with the fixed Sharelock:
+
+<pre>
+module Blah where
+
+import Data.Maybe
+import Data.Either
+import Data.List
+import Data.Map (Map)
+import qualified Data.Map as Map
+import Data.Typeable
+
+import Text.CSV -- cabal install csv
+
+import Maskell.Stats
+import Maskell.Text
+
+cf = parseCSVFromFile "/home/mcarter/Downloads/StatsList-20150503.csv"
+
+procCsv (hdr:rowData) = do
+  print hdr
+  let rows = init rowData -- the last row is just a blank
+  let exCol name row = row !! (fromJust $ elemIndex name hdr)
+  let epic = exCol "epic"
+  let subsector = exCol "subsector"
+
+  let subRows = filter (\r -> subsector r == "SPECIALTY FINANCE") rows
+  let psrs = map (readFloat . exCol "PSR") subRows
+
+  putStrLn "Median PSR of specialty finance is:"
+  print $ mmedian psrs
+
+main = do
+  c <- cf
+  case c of
+    Left oops -> print oops
+    Right ok -> procCsv ok
+  putStrLn "Finished"
+
+
+</pre>
+
+
+<hr><pre>
+Author:  Mark Carter
+Created: 03-May-2015
+Updated: 03-May-2015
+</small>
+</body>
+</html>
