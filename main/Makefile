@@ -1,17 +1,12 @@
-#ROOT = /mnt/cubie-root
-#/var/www/
-#ETC = /etc/nginx/sites-enabled
-#DEST = /mnt/cubie-root/var/www/main/htdocs/
-DEST = /mnt/cubie/var/www/main/htdocs/                               
+DEST = $(shell ../www dest)
+#DEST = /mnt/cubie/var/www/main/htdocs/                               
 
 
 .PHONY : update
 
 update:
-	echo Updating main
-	#rsync -avz --delete -e ssh -p 2222 `pwd`/htdocs/ cubie::var/ww/main/htdocs/
+	echo Updating main to $(DEST)
 	rmjunk
-	#mkdir -p $(DEST)
 	rsync -avz --delete `pwd`/htdocs/ $(DEST)
 
 #install :

@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+declare -A dests
+dests=(["cubie"]="/var/www/main/htdocs/" 
+    ["vivo"]="/mnt/cubie/var/www/main/htdocs/")
+
+HOST=`hostname`
+
+#if [ "$HOST" == "cubie" ]
+#then
+#    echo cubie
+#else
+#    echo not cubie
+#fi 
+
+
+echo "${dests[$HOST]}" # destination dir
