@@ -1,3 +1,5 @@
+-- GENERATING RANDOM NUMBERS
+
 import Data.List
 import System.Random
 
