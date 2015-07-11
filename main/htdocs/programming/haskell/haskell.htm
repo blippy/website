@@ -9,34 +9,9 @@
 
 <h1>Haskell programming language</h1>
 
-
-
-<hr><h2>Cabal projects</h2>
-
-<pre>
-cabal sandbox init
-cabal init
-cabal configure
-cabal repl
-
-#If you want to release the code for importation elsewhere:
-runhaskell Setup.hs configure --user
-runhaskell Setup.hs build
-runhaskell Setup.hs install
-
-#Using the module from ghci:
-import Foo.Bar
-
-#Adding user sources from another package:
-cabal sandbox add-source $dir # top level
-cabal install $pkgname
-
-#Build Haddock documentation:
-cabal haddock
-</pre>
-
 <hr><h2>Also on this site</h2>
 
+<li><a href="cabal.htm">cabal</a>
 <li><a href="debugging.htm">debugging</a>
   
   <li><a href="formatting.htm">formatting</a>
