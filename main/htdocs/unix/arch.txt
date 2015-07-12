@@ -1,0 +1,60 @@
+Boot from ISO
+fdisk -l # see list of disks in system eg /dev/sda1
+cfdisk /dev/sda
+mkfs.ext4 /dev/sda1
+mount /dev/sda1 /mnt
+mkswap /dev/sda2 # assume you set up swap
+swapon /dev/sda2
+
+
+# REQUIRES INTERNET CONNECTION!
+pacstrap /mnt base base-devel # install base and devel via internet
+arch-chroot /mnt
+passwd # set up a root passowrd
+
+# keyboard
+nano /etc/locale.gen # uncomment all en_GB* for Britain
+locale-gen
+
+# timezone
+cd /usr/share/zoneinfo/GB
+ls
+ln -s /usr/share/zoneinfo/GB/London /etc/localtime
+
+echo $SOMEHOSTNAME > /etc/hostname # set a hostname
+
+# install bootloader
+pacman -S grub-bios
+grub-install /dev/sda
+mkinitcpio -p linux
+grub-mkconfig -o /boot/grub/grub.cfg
+
+exit # come out of chroot
+
+genfstab /mnt >> /mnt/etc/fstab # create an initial fstab file
+
+umount /mnt
+reboot
+# Remove installation media
+
+# You should now be able to log in as root
+
+# network
+dhcpcd # start network
+ip link # to obtain a $profile e.g. enp0s3
+netctl enable dhcpcd@$profile
+
+#install yaourt
+#as non-user
+curl -O https://aur.archlinux.org/packages/pa/package-query/package-query.tar.gz
+tar zxvf package-query.tar.gz
+cd package-query
+makepkg -si
+cd ..
+curl -O https://aur.archlinux.org/packages/ya/yaourt/yaourt.tar.gz
+tar zxvf yaourt.tar.gz
+cd yaourt
+makepkg -si
+cd ..
+
+#Source: https://youtu.be/Wqh9AQt3nho
