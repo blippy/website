@@ -1,0 +1,101 @@
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Arch Linux</title>
+</head>
+
+<body>
+<a href="../index.html">Home</a> : <a href="unix.htm">unix</a>
+
+
+<h1>Arch Linux</h1>
+
+Preliminary installation instructions are available vy typing
+<pre>
+  wget http://www.markcarter.me.uk/unix/arch.txt
+</pre>
+
+<hr><h2>keyboard</h2>
+
+<pre>
+nano /etc/locale.gen # uncomment all en_GB* for Britain
+locale-gen
+</pre>
+
+<hr><h2>lxde</h2>
+
+Include the installation of:
+<pre>
+  pacman -S lxde-icon-theme lxmenu-data lxpanel lxtask
+</pre>
+
+In <code>~/.xinitrc</code>:
+<pre>
+exec startldxe
+</pre>
+
+<hr><h2>timezone for UK</h2>
+
+<pre>
+  cd /usr/share/zoneinfo/GB
+  ls
+  ln -s /usr/share/zoneinfo/Europe/London /etc/localtime
+</pre>
+
+<hr><h2>xorg</h2>
+
+Determine Graphics driver:
+<pre>
+lspci | grep -e VGA -e 3D
+</pre>
+For vivo, I determined that it was an <code>Intel Corp 3rd Gen Core processor Graphics Controller</code> and that the correct driver to install was <code>x86-video-intel</code> using:
+<pre>pacman -S xf86-video-intel</pre>
+
+Install, among other things (I left out startx and stuff):
+<pre>
+pacman -S xorg-server xorg-server-common
+</pre>
+
+Set the keyboard:
+<pre>
+nano /etc/X11/xorg.conf.d/00-keyboard.conf :
+Section "InputClass"
+        Identifier "system-keyboard"
+        MatchIsKeyboard "on"
+        Option "XkbLayout" "gb"
+        Option "XkbModel" "pc104"
+        #Option "XkbVariant" ",dvorak"
+        Option "XkbOptions" "grp:alt_shift_toggle,terminate:ctrl_alt_bksp"
+EndSection
+</pre>
+
+
+</pre>  
+
+Now install lxde
+
+<hr><h2>yaourt</h2>
+
+<h3>Installation</h3>
+As non-root with sudoer permissions:
+<pre>
+curl -O https://aur.archlinux.org/packages/pa/package-query/package-query.tar.gz
+tar zxvf package-query.tar.gz
+cd package-query
+makepkg -si
+
+cd ..
+curl -O https://aur.archlinux.org/packages/ya/yaourt/yaourt.tar.gz
+tar zxvf yaourt.tar.gz
+cd yaourt
+makepkg -si
+cd ..  
+</pre>
+
+
+<hr><pre>
+Author:  Mark Carter
+Created: 13-Jul-2015
+Updated: 13-Jul-2015
+</pre>
+</body>
+</html>

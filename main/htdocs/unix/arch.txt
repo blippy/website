@@ -10,17 +10,9 @@ swapon /dev/sda2
 # REQUIRES INTERNET CONNECTION!
 pacstrap /mnt base base-devel # install base and devel via internet
 arch-chroot /mnt
-passwd # set up a root passowrd
+passwd # set up a root password
 
-# keyboard
-nano /etc/locale.gen # uncomment all en_GB* for Britain
-locale-gen
-
-# timezone
-cd /usr/share/zoneinfo/GB
-ls
-ln -s /usr/share/zoneinfo/GB/London /etc/localtime
-
+# set hostname
 echo $SOMEHOSTNAME > /etc/hostname # set a hostname
 
 # install bootloader
@@ -28,6 +20,15 @@ pacman -S grub-bios
 grub-install /dev/sda
 mkinitcpio -p linux
 grub-mkconfig -o /boot/grub/grub.cfg
+
+# If you have "cannot find EFI directory"
+# try creating a partition at the beginning
+# of the disk of size 1M (1007k)
+# use `gdisk' to set its type to ef02
+# Maybe make it bootable using `set 1 boot on'
+# Then try `grub install /dev/sda' again
+
+
 
 exit # come out of chroot
 
@@ -42,19 +43,4 @@ reboot
 # network
 dhcpcd # start network
 ip link # to obtain a $profile e.g. enp0s3
-netctl enable dhcpcd@$profile
-
-#install yaourt
-#as non-user
-curl -O https://aur.archlinux.org/packages/pa/package-query/package-query.tar.gz
-tar zxvf package-query.tar.gz
-cd package-query
-makepkg -si
-cd ..
-curl -O https://aur.archlinux.org/packages/ya/yaourt/yaourt.tar.gz
-tar zxvf yaourt.tar.gz
-cd yaourt
-makepkg -si
-cd ..
-
-#Source: https://youtu.be/Wqh9AQt3nho
+systemctl enable dhcpcd@$profile

@@ -31,6 +31,15 @@ Note that these instructions are amost certain to be incomplete, but it is my be
 
 Ensure <code>~/.cabal/bin</code> is in your <code>$PATH</code>.
 
+<h3>Libraries</h3>
+
+You will need
+<pre>
+  lapack # pacman -S lapack
+  libtinfo # yaourt -Ss libtinfo
+  zeromq # pacman -S zeromq
+</pre>
+
 <h3>Base</h3>
 I'm not sure if you should do this globally, or in a sandbox. As at 11-Jul-2015, try globally:
 <pre>
@@ -71,7 +80,7 @@ cabal install . ihaskell-display/*
 
 <hr><h2>Running</h2>
 <pre>
-ipython notebook
+ipython notebook --no-browser --ip='*'
 </pre>
 
 <hr><h2>Links to other sites</h2>
@@ -92,7 +101,7 @@ my patch for ghci 7.10.1 compilation
 <hr><pre>
 Author:  Mark Carter
 Created: 29-Apr-2015
-Updated: 11-Jul-2015
+Updated: 13-Jul-2015
 </small>
 </body>
 </html>
