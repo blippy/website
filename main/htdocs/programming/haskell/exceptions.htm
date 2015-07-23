@@ -29,6 +29,17 @@ handler :: IOError -> IO ()
 handler e = putStrLn "no can do"
 </pre>
 
+<h3>Inlining handlers example</h3>
+
+<pre>
+  {-# LANGUAGE ScopedTypeVariables #-}
+  module Foo where
+  import Control.Exception (catch)
+
+  ...
+
+  writeFile name text `catch` \(e::IOError) -> putStrLn "No can do, boss"
+  </pre>
 
 <hr><h2>Links to other sites</h2>
 
@@ -37,7 +48,7 @@ None
 <hr><pre>
 Author:  Mark Carter
 Created: 18-Jul-2015
-Updated: 18-Jul-2015
+Updated: 23-Jul-2015
 </small>
 </body>
 </html>

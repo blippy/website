@@ -40,7 +40,20 @@ reboot
 
 # You should now be able to log in as root
 
-# network
+# network - DHCP
 dhcpcd # start network
 ip link # to obtain a $profile e.g. enp0s3
 systemctl enable dhcpcd@$profile
+
+# network - Static
+# create file /etc/netctl/static:
+Description='A basic static ethernet connection created by mcarter'
+Interface=enp3s0
+Connection=ethernet
+IP=static
+Address=('192.168.0.13/24')
+Gateway='192.168.0.1'
+DNS=('192.168.0.1')
+# END OF FILE
+netctl enable static
+netctl reenable static
