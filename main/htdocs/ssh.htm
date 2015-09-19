@@ -17,6 +17,12 @@ Automatically install your public key to the remote host (this actually is inclu
 <pre>
     ssh-copy-id user@remotehost [-p nnnn]
 </pre>
+or
+<pre>
+    cat ~/.ssh/id_rsa.pub | ssh user@machine "mkdir ~/.ssh; cat &gt;&gt; ~/.ssh/authorized_keys"
+</pre>
+
+
 
 <hr><h2>Disable ssh timeout</h2>
 
@@ -113,7 +119,7 @@ chmod 644 ~/.ssh/known_hosts
 <hr><pre>
 Author:  Mark Carter
 Created: 04-Apr-2012
-Updated: 04-Mar-2015
+Updated: 19-Sep-2015
 </pre>
 </body>
 </html>
