@@ -1,0 +1,48 @@
+<html><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <LINK REL=StyleSheet HREF="../../style.css" TYPE="text/css">
+  <title>Monads</title></head>
+<body>
+
+
+<a href="../../index.html">Home</a> 
+: <a href="../programming.htm">programming</a>
+: <a href="haskell.htm">haskell</a>
+
+
+<h1>Monads</h1>
+
+<hr><h2>Example Writer Monad</h2>
+
+<pre>
+import Control.Monad.Writer
+
+half :: Int -&gt; Writer String Int
+half x = do
+        tell (&quot;I just halved &quot; ++ (show x) ++ &quot;!&quot;)
+        return (x `div` 2)
+        
+main = print (runWriter $ half 8 &gt;&gt;= half)
+
+</pre>
+
+Run <code>runhaskell moan.hs</code>:
+<pre>
+(2,"I just halved 8!I just halved 4!")
+</pre> 
+
+
+<hr><h2>Link to other sites</h2>
+
+<li><a href="http://adit.io/posts/2013-06-10-three-useful-monads.html">Three useful Monads</a> Writer, Reader, State
+    
+
+
+
+<hr><pre>
+Author:  Mark Carter
+Created: 26-Sep-2015
+Updated: 26-Sep-2015
+</small>
+</body>
+</html>
