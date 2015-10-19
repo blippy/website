@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
 <html><head>
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-  <title>ascii</title>
+  <title>samba</title>
 </head>
 
 <body>
@@ -13,6 +13,20 @@
 
 <hr><h2>Installation configuration</h2>
 
+<h3>Arch Linux</h3>
+
+<pre>
+sudo pacman -S samba
+sudo systemctl start smbd.service
+sudo systemctl enable smbd.service
+</pre>
+
+If you get something goofy about permissions then
+<pre>sudo rm -rf /var/cache/samba</pre>
+
+You may need some extra stuff as noted in the Debian section.
+
+<h3>Debian</h3>
 Install on Debian-like systems: <code>sudo apt-get install samba samba-common nbtscan</code>
 
 In /etc/samba/samba.conf, add the following line to the Misc section: 
@@ -55,7 +69,7 @@ None
 <hr><pre>
 Author:  Mark Carter
 Created: 20-Apr-2014
-Updated: 20-Apr-2014
+Updated: 14-Oct-2015
 </pre>
 
 </body></html>
