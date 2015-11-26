@@ -63,23 +63,7 @@ Others:
 
 </pre>
 
-<hr><h2>Feeding command output to a while loop without using pipes</h2>
 
-From a file:
-<pre>
-while read line
-do
- echo $line
-done &lt;FILE
-</pre>
-
-From a command output
-<pre>
-ls -1d *|while read line
-do
- echo $line
-done
-</pre>
 
 
 <hr><h2>If</h2>
@@ -100,20 +84,17 @@ One-line statements:
 Example: <code>comm</code> takes two file names as arguments. You can treat outputs from other commands as file arguments to <code>comm</code> using a structure like:
 <pre>comm -12 &lt;(sort names1) &lt;(sort names2)</pre>
 
-<hr><h2>Random numbers</h2>
-
-Generate a random number: <code>echo $RANDOM</code><br>
-Generate a number between 0 and 9 inclusive: <code>echo $((RANDOM%10))</code><br>
-Generate a number between 100 and 109 inclusive: <code>echo $((RANDOM%10+100))</code><br>
-<a href="http://www.cyberciti.biz/faq/bash-shell-script-generating-random-numbers/">xlink</a>
 
 
 <hr><h2>See also</h2>
 
+<li><a href="pipes.htm">pipes</a> - feeding command output to a while loop
+<li><a href="random.htm">random</a> - random number generation
 <li><a href="rc.htm">rc</a> - initialisation files
 
 <hr><h2>Links to other sites</h2>
 
+<li><a href="http://stackoverflow.com/questions/3231804/in-bash-how-to-add-are-you-sure-y-n-to-any-command-or-alias">Are you sure? [Y/n]</a>
 
 <li><a href="http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in">What directory is a bash script stored in?</a>
 
@@ -122,6 +103,6 @@ Generate a number between 100 and 109 inclusive: <code>echo $((RANDOM%10+100))</
 <hr><pre>
 Author:  Mark Carter
 Created: 14-May-2011
-Updated: 22-Feb-2014
+Updated: 24-Nov-2015
 </pre>
 </body></html>

@@ -9,9 +9,18 @@
 
 <h1>tmux</h1>
 
-tmux is a terminal multiplexer, similar to screen.
+<hr><h2>~/.tmux.conf</h2>
 
-<h2>tmuxinator</h2>
+<pre>
+# Set Shift-Page Up/Down to shift the page up/down
+set -g terminal-overrides 'xterm*:smcup@:rmcup@'
+
+# mouse wheel scrolling
+set -g mouse on
+bind -T root WheelUpPane copy-mode -eu
+</pre>
+
+<hr><h2>tmuxinator</h2>
 
 Allows you to create/manage tmux sessions easily. Here is an example file I created, <code>~/.tmuxinator/accts.yml</code>:
 <pre>
@@ -45,12 +54,12 @@ To go to the accts session, simply type:
 
 <li><a href="http://www.brain-dump.org/projects/dvtm/">dvtm</a> - dynamic virtual terminal manager
 
-<li><a href="http://tilda.sourceforge.net/tildashots.php">tilda</a> -  "pop-up virtual terminal" for X, just like Yakuake (KDE) or Guake (GNOME), but a little more lightweight and a little more maintained 
+
 
 
 <hr><pre>
 Author:  Mark Carter
 Created: 08-Oct-2012
-Updated: 16-Apr-2013
+Updated: 23-Nov-2015
 </pre>
 </body></html>

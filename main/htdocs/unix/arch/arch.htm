@@ -22,17 +22,6 @@ nano /etc/locale.gen # uncomment all en_GB* for Britain
 locale-gen
 </pre>
 
-<hr><h2>lxde</h2>
-
-Include the installation of:
-<pre>
-  pacman -S lxde-icon-theme lxmenu-data lxpanel lxtask
-</pre>
-
-In <code>~/.xinitrc</code>:
-<pre>
-exec startldxe
-</pre>
 
 
 <hr><h2>Network</h2>
@@ -50,39 +39,6 @@ exec startldxe
   ln -s /usr/share/zoneinfo/Europe/London /etc/localtime
 </pre>
 
-<hr><h2>xorg</h2>
-
-Determine Graphics driver:
-<pre>
-lspci | grep -e VGA -e 3D
-</pre>
-For vivo, I determined that it was an <code>Intel Corp 3rd Gen Core processor Graphics Controller</code> and that the correct driver to install was <code>x86-video-intel</code> using:
-<pre>pacman -S xf86-video-intel</pre>
-
-Install, among other things (I left out startx and stuff):
-<pre>
-pacman -S xorg-server xorg-server-common
-</pre>
-
-Set the keyboard:
-<pre>
-nano /etc/X11/xorg.conf.d/00-keyboard.conf :
-Section "InputClass"
-        Identifier "system-keyboard"
-        MatchIsKeyboard "on"
-        Option "XkbLayout" "gb"
-        Option "XkbModel" "pc104"
-        #Option "XkbVariant" ",dvorak"
-        Option "XkbOptions" "grp:alt_shift_toggle,terminate:ctrl_alt_bksp"
-EndSection
-</pre>
-
-
-</pre>  
-
-Now install lxde
-
-
 
 
 <hr><h2>See also</h2>
@@ -90,9 +46,9 @@ Now install lxde
 <li><a href="../arch.txt">arch.txt</a> - for when you need to consult the documents without a browser
 
 <li><a href="aur.htm">aur</a> - for more fine-grained control than with yaourt
-
+<li><a href="lxde.htm">lxde</a>
 <li><a href="pacman.htm">pacman</a>
-
+<li><a href="xorg.htm">xorg</a>
 <li><a href="yaourt.htm">yaourt</a>  
 
 
@@ -105,7 +61,7 @@ Now install lxde
 <hr><pre>
 Author:  Mark Carter
 Created: 13-Jul-2015
-Updated: 18-Nov-2015
+Updated: 24-Nov-2015
 </pre>
 </body>
 </html>
