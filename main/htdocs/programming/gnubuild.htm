@@ -33,6 +33,19 @@ You pass them into configure using commands like:
 <pre>env CPPFLAGS='-I/usr/include/ncurses ...' LDFLAGS='-L...' ./configure</pre>
 
 
+<hr><h2>Makefile</h2>
+
+<pre>
+foo : foo.c
+  gcc $&lt; -o $@
+
+---
+$@ the left side of the :
+$^ the right side of the :
+$&lt; the first prerequisite on the right side of :
+  
+</pre>
+
 <hr><h2>Links to other sites</h2>
 
 <ul>
@@ -60,7 +73,7 @@ using gnu autoconf, automake, autoheader
 <hr><pre>
 Author:  Mark Carter
 Created: 28-Dec-2007
-Updated: 30-Nov-2015
+Updated: 10-Dec-2015
 </pre>
 </body>
 </html>
