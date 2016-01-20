@@ -11,38 +11,6 @@
 <h1>bash</h1>
 
 
-<hr><h2>Command-line processing</h2>
-
-<h3>Arguments</h3>
-
-<p><code>$*</code> - all the command arguments
-<p><code>$#</code> - number of arguments (excludes the command itself)
-<p><code>${@:2}</code> - arguments 2 onwards. E.g. <code>interesting=${@:2}</code>
-
-<h3>Printing help</h3>
-<pre>
-function print_help {
-cat &lt;&lt;EOF                                                                       
-$0 - accounts processing                                                        
--d download, decode and store values                                            
--h this help                                                                    
--m prep, create accounts, enyafi                                                
-EOF                                                                             
-}
-</pre>
-
-<h3>Getopts</h3>
-<pre>
-while getopts "a:h" opt
-do
-    case $opt in
-        a) echo "$OPTARG" &gt;&gt;$FILE ;; # OPTARG in quotes to preserve spaces
-        h) print_help ;;
-        *) echo Unknown option ; print_help ;;
-    esac
-done
-
-</pre>
 
 
 
@@ -88,12 +56,18 @@ Example: <code>comm</code> takes two file names as arguments. You can treat outp
 
 <hr><h2>See also</h2>
 
+<li><a href="clp.htm">clp</a> - command-line processing
 <li><a href="pipes.htm">pipes</a> - feeding command output to a while loop
 <li><a href="random.htm">random</a> - random number generation
 <li><a href="rc.htm">rc</a> - initialisation files
 
 <hr><h2>Links to other sites</h2>
 
+<h3>gists</h3>
+
+<li><a href="https://gist.github.com/blippy/41bbe6569f1df75f17d5">cop.sdh</a> - coprocesses in bash using `dc' as an example
+  
+<h3>Unclassified</h3>
 <li><a href="http://stackoverflow.com/questions/3231804/in-bash-how-to-add-are-you-sure-y-n-to-any-command-or-alias">Are you sure? [Y/n]</a>
 
 <li><a href="http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in">What directory is a bash script stored in?</a>
@@ -103,6 +77,6 @@ Example: <code>comm</code> takes two file names as arguments. You can treat outp
 <hr><pre>
 Author:  Mark Carter
 Created: 14-May-2011
-Updated: 24-Nov-2015
+Updated: 20-Jan-2016
 </pre>
 </body></html>
