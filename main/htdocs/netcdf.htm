@@ -9,6 +9,15 @@
 <h1>netcdf</h1>
 
 
+<hr><h2>nco</h2>
+
+nco is a collection of tools, but is not part of the standard netcdf distribution.
+
+<p>To show two arrays side-by-side, for example:
+<pre>
+  paste &lt;(ncks -v "DTG.L/price" -s "%f\n" epics.nc) &lt;(ncks -v dsi -s "%d\n" epics.nc) | less
+</pre>
+
 <hr><h2>Also on this site</h2>
 
 <li><a href="programming/fortran/netcdf.htm">fortran</a> - linking with Fortran
@@ -20,7 +29,7 @@
 <hr><pre>
 Author:  Mark Carter
 Created: 29-Jan-2016
-Updated: 29-Jan-2016
+Updated: 01-Feb-2016
 </pre>
 </body>
 </html>
