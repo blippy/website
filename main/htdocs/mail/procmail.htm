@@ -34,6 +34,21 @@ Restart postfix:
 
 <h3>Forwarding</h3>
 <pre>
+LOGFILE=${HOME}/procmail.log
+#MAILDIR=${HOME}/Maildir
+#SPAM=kink
+# need to sudo aptitude install nmh
+STORE=/usr/lib/mh/rcvstore
+
+
+#:0 B
+#* spam-blah-exampale
+#| $STORE +spam
+
+#:0 B
+#* BLVN
+#| $STORE +BLVN
+
 # Forward everything to me at gmail
 :0:
 ! myemailaddress@gmail.com
@@ -46,6 +61,6 @@ None
 <hr><pre>
 Author:  Mark Carter
 Created: 15-Jun-2013
-Updated: 15-Jun-2013
+Updated: 10-Feb-2016
 </pre>
 </body></html>
