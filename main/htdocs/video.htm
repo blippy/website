@@ -14,11 +14,17 @@
 <p>Speed up video: <code>ffmpeg -i input.mkv -an -filter:v "setpts=0.5*PTS" output.mkv</code>. <code>-an</code> turns off audio. <a href="https://trac.ffmpeg.org/wiki/How%20to%20speed%20up%20/%20slow%20down%20a%20video">xlink</a>
 
   
+<hr><h2>Cinelerra</h2>
+
+Cinelerra seems to play much nicer with DV vids, so I recommend that you both import and render in DV. To transcode from MPG to DV, use a command like
+<pre>ffmpeg -i foo.mpg foo.dv</pre>
+
+Note that DV files can be quite big. a 26.4M MPG file became a 154.1M, for example.
 
 <hr><pre>
 Author:  Mark Carter
 Created: 14-Nov-2015
-Updated: 14-Nov-2015
+Updated: 27-Mar-2016
 </pre>
 </body>
 </html>
