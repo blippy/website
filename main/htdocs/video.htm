@@ -13,24 +13,58 @@
 
 <p>Speed up video: <code>ffmpeg -i input.mkv -an -filter:v "setpts=0.5*PTS" output.mkv</code>. <code>-an</code> turns off audio. <a href="https://trac.ffmpeg.org/wiki/How%20to%20speed%20up%20/%20slow%20down%20a%20video">xlink</a>
 
-  
+<p>Convert to 720x256 video, reduce volume a lot, skip the first 5 seconds of video, and only take 1 second of video:</p>  
+<pre>
+ffmpeg -ss 00:00:05 -i static.mkv -t 00:00:01 -vf scale=720x576 -af "volume=0.1" static.mpg
+</pre>
+
+
 <hr><h2>Cinelerra</h2>
 
 Cinelerra seems to play much nicer with DV vids, so I recommend that you both import and render in DV. To transcode from MPG to DV, use a command like
 <pre>ffmpeg -i foo.mpg foo.dv</pre>
 
-Note that DV files can be quite big. a 26.4M MPG file became a 154.1M, for example.
+<p>Note that DV files can be quite big. a 26.4M MPG file became a 154.1M, for example.
 
+<p>
+PAL 720x576 seems a good one to go for
+</p>
+
+
+<h3>Compiling</h3>
+<pre>
+Commit cee90eb (CinelerraCV.git) ran without crashing
+CFLAGS=-g ./configure
+make
+sudo make install
+gdb cinelerra
+</pre>
+
+<h3>Cinelerra links</h3>
 <ul>
+	<li><a href="https://cinelerra-cv.org/doxygen/2.3_d189a04/">doxygen</a></li>
 <li><a href="http://lists.cinelerra-cv.org/pipermail/cinelerra/">
 			mailing list</a></li>
+<li><a href="http://cinelerra.org/docs/cinelerra_cv_manual_en.html">manual</a></li>
 <li><a href="http://is.gd/sfmYPA">ogg timeline bug</a></li> 
-<li><a href="http://lists.cinelerra-cv.org/pipermail/cinelerra/2016q2/004447.html">svg degfault</a></li>
+<li><a href="http://lists.cinelerra-cv.org/pipermail/cinelerra/2016q2/004447.html">svg degfault</a> - (qv a <a href="https://github.com/r4mp/cinelerra/tree/master/cinelerra-4.6.mod/plugins/svg">cleaned-up version</a>) </li>
 </ul>
+
+<hr><h2>Other software</h2>
+
+<li><a href="https://github.com/jliljebl/flowblade">flowblade</a></li>
+
+<li><a href="https://www.mltframework.org/bin/view/MLT/Projects">mlt</a>
+- references kdenlive, flowblade, shotcut, openshot, etc
+</li>
+
+<li><a href="http://www.openmovieeditor.org/">open movie editor</a></li>
+
+
 <hr><pre>
 Author:  Mark Carter
 Created: 14-Nov-2015
-Updated: 04-Apr-2016
+Updated: 10-Apr-2016
 </pre>
 </body>
 </html>
