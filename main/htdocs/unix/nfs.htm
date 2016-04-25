@@ -19,10 +19,16 @@ Setting up a network file system
 sudo apt-get install nfs-kernel-server nfs-common
 
 sudo vi /etc/exports:
+<strike>
 /home vivo(rw,sync,no_subtree_check)
 / vivo(rw,sync,no_subtree_check)
+</strike>				      
+/ *(rw,sync,fsid=0)
+
+sudo exportfs -arv
 
 sudo service nfs-kernel-server restart
+sudo systemctl restart nfs-server
 
 </pre>
 
@@ -58,7 +64,7 @@ NFS make simple UID mapping work. Idmapd, Debian [Solved]</a> - Linux Mint forum
 <hr><pre>
 Author:  Mark Carter
 Created: 06-Aug-2013
-Updated: 24-Apr-2015
+Updated: 24-Apr-2016
 </pre>
 </body>
 </html>
