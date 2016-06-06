@@ -18,6 +18,19 @@
 ffmpeg -ss 00:00:05 -i static.mkv -t 00:00:01 -vf scale=720x576 -af "volume=0.1" static.mpg
 </pre>
 
+<h3>WTV -&gt; MP4</h3>
+
+WTV files stutter in VLC, so you are advised to convert it to MP4.
+<pre>
+ffmpeg -i in.wtv -acodec libmp3lame out.mp4
+</pre>
+
+A 1h5m WTV is 708M, and converts to a 310M MP4 file. AAC is the preferred audio codec for MP4, but it is an experimental codec; hence the use of libmp3lame. 
+
+As of Dec 2015, AAC is no longer experimental in <code>ffmpeg</code> .
+
+
+
 <hr><h2>Also on this site</h2>
 
 <li><a href="cine.htm">cinelerra</a></li>
@@ -36,7 +49,7 @@ ffmpeg -ss 00:00:05 -i static.mkv -t 00:00:01 -vf scale=720x576 -af "volume=0.1"
 <hr><pre>
 Author:  Mark Carter
 Created: 14-Nov-2015
-Updated: 01-May-2016
+Updated: 06-Jun-2016
 </pre>
 </body>
 </html>
