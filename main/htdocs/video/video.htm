@@ -18,6 +18,22 @@
 ffmpeg -ss 00:00:05 -i static.mkv -t 00:00:01 -vf scale=720x576 -af "volume=0.1" static.mpg
 </pre>
 
+Legend:
+<ul>
+	<li><b>Ratio</b> - relative size of output file to input</li>
+	<li><b>Vlc</b> - playback quality</li>
+</ul>
+
+
+<h3>WTV -&gt; MKV4</h3>
+
+<pre>
+ffmpeg -i in.wtv out.mkv
+Ratio: 0.44
+Vlc: excellent
+
+</pre>
+
 <h3>WTV -&gt; MP4</h3>
 
 WTV files stutter in VLC, so you are advised to convert it to MP4.
@@ -49,7 +65,7 @@ As of Dec 2015, AAC is no longer experimental in <code>ffmpeg</code> .
 <hr><pre>
 Author:  Mark Carter
 Created: 14-Nov-2015
-Updated: 06-Jun-2016
+Updated: 21-Jun-2016
 </pre>
 </body>
 </html>
