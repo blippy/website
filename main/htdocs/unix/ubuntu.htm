@@ -10,7 +10,7 @@
 <h1>Ubuntu</h1>
 
 
-Some set-up notes. Geared towards Saucy Salamander.
+Some set-up notes. Geared towards 16.10.
 
 
 <hr><h2>Create launcher item</h2>
@@ -35,6 +35,23 @@ Drag the resulting file onto the launcher.
 
 Turn off on-line search results, which should speed things up:<code>System Settings: Security &amp; Privacy: Search: switch off Include online search results</code>
 
+<hr><h2>LXDE</h2>
+
+<h3>PCManFM</h3>
+
+To fix PCManFM not allowing the mounting of windows partition:
+<pre>
+sudo usermod -a -G sudo mcarter
+</pre>
+
+
+<hr><h2>Suggested software</h2>
+
+<li><code>kaffeine + libxine2-x + w-scan</code> - for playing TV. It works, but I am not sure about recording. Similarly: dvb-apps, kodi-pvr-dvbviewer. mythtv seemed broken in 16.10</li>
+
+<li><code>remmina</code> - vnc viewer</li>
+
+<li><code>xfe</code> - lightweight file manager</li>
 
 <hr><h2>Links to other sites</h2>
 
@@ -46,7 +63,7 @@ Turn off on-line search results, which should speed things up:<code>System Setti
 <hr><pre>
 Author:  Mark Carter
 Created: 21-Oct-2013
-Updated: 09-Dec-2013
+Updated: 17-Oct-2016
 </pre>
 </body>
 </html>
